@@ -32,7 +32,7 @@ function fusers_get_datatable_info(Action & $action)
 
         case "user":
             $s = new SearchDoc($action->dbaccess, "IUSER");
-            if ($group) $s->addFilter(sprintf("us_idgroup~E'\\\\y%s\\\\y'", $group));
+            if ($group) $s->addFilter(sprintf("'%s' = any(us_idgroup)", $group));
             break;
 
         default:

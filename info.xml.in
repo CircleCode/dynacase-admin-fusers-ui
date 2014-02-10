@@ -6,7 +6,7 @@
     </description>
 
     <requires>
-        <module comp='ge' version='3.2.12' name='dynacase-core'/>
+        <module comp='ge' version='3.3.0' name='dynacase-core'/>
         <module comp='ge' version='1.0.0' name='dynacase-admin'/>
     </requires>
 

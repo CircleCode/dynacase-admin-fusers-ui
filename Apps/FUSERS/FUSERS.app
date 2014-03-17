@@ -25,12 +25,9 @@ $app_desc = array(
     "name" => "FUSERS", //Name
     "short_name" => N_("Users") , //Short name
     "description" => N_("Users Management") , //long description
-    "access_free" => "N", //Access free ? (Y,N)
     "icon" => "fusers.png", //Icon
     "displayable" => "Y", //Should be displayed on an app list (Y,N)
-    "with_frame" => "Y", //Use multiframe ? (Y,N)
     "childof" => "", //
-    "iorder" => 120, // install order
     "tag" => "ADMIN SYSTEM"
 );
 

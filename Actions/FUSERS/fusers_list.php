@@ -13,8 +13,6 @@ function fusers_list(Action & $action)
     $dbaccess = $action->dbaccess;
     // create group tree
     $action->lay->set("isMaster", $action->parent->Haspermission("FUSERS_MASTER"));
-    
-    $user = new Account();
     //$ugroup=$user->GetGroupsId();
     $q2 = new queryDb("", "Account");
     $groups = $q2->Query(0, 0, "TABLE", "select users.*, groups.idgroup from users, groups where users.id = groups.iduser  and users.accounttype='G'");
@@ -23,7 +21,7 @@ function fusers_list(Action & $action)
     $mgroups = $q2->Query(0, 0, "TABLE", "select users.* from users where accounttype='G' and id not in (select iduser from groups, users u where groups.idgroup = u.id and u.accounttype='G')");
     $groupuniq = array();
     if ($groups) {
-        foreach ($groups as $k => $v) {
+        foreach ($groups as $v) {
             $v['lastname'] = htmlspecialchars($v['lastname']);
             $v['firstname'] = htmlspecialchars($v['firstname']);
             $v['login'] = htmlspecialchars($v['login']);
@@ -34,12 +32,16 @@ function fusers_list(Action & $action)
         }
     }
     if (!$groups) $groups = array();
-    $group = new_doc($action->dbaccess, "IGROUP");
+    $group = \Dcp\DocManager::getFamily("IGROUP");
+    if ($group === null) {
+        $action->exitError(sprintf(_("FUSERS:Family '%s' not found."), "IGROUP"));
+    }
+    \Dcp\DocManager::cache()->addDocument($group);
     $groupIcon = $group->getIcon('', 14);
     $action->lay->set("iconGroup", $groupIcon);
     $tgroup = array();
     if ($mgroups) {
-        $doc = createTmpDoc($dbaccess, 1);
+        $doc = \Dcp\DocManager::createDocument(1);
         uasort($mgroups, "cmpgroup");
         foreach ($mgroups as $k => $v) {
             $cgroup = fusers_getChildsGroup($v["id"], $groups, $groupIcon);
@@ -52,7 +54,7 @@ function fusers_list(Action & $action)
             $tgroup[$k] = $v;
             $tgroup[$k]["SUBUL"] = $cgroup;
             if ($fid) {
-                $tdoc = getTDoc($dbaccess, $fid);
+                $tdoc = \Dcp\DocManager::getRawDocument($fid);
                 $icon = $doc->getIcon($tdoc["icon"], 14);
                 $tgroup[$k]["icon"] = $icon;
             } else {
@@ -99,10 +101,10 @@ function fusers_list(Action & $action)
         "IGROUP"
     ) as $fid) {
         
-        $fdoc = new_doc($dbaccess, $fid);
+        $fdoc = \Dcp\DocManager::getFamily($fid);
         
         $lattr = $fdoc->getNormalAttributes();
-        foreach ($lattr as $k => $a) {
+        foreach ($lattr as $a) {
             if ((($a->type == "enum") || ($a->type == "enumlist")) && (($a->phpfile == "") || ($a->phpfile == "-")) && ($a->getOption("system") != "yes")) {
                 
                 $tcf[] = array(
@@ -127,10 +129,10 @@ function fusers_list(Action & $action)
  */
 function fusers_getChildsGroup($id, $groups, $groupIcon)
 {
-    static $dbaccess;
     static $doc;
-    if (!$dbaccess) $dbaccess = getParam("FREEDOM_DB");
-    if (!$doc) $doc = createTmpDoc($dbaccess, 1);
+    if (!$doc) {
+        $doc = \Dcp\DocManager::createDocument(1);
+    }
     $tlay = array();
     foreach ($groups as $k => $v) {
         if ($v["idgroup"] == $id) {
@@ -143,7 +145,7 @@ function fusers_getChildsGroup($id, $groups, $groupIcon)
             $tlay[$k] = $v;
             $tlay[$k]["SUBUL"] = fusers_getChildsGroup($v["id"], $groups, $groupIcon);
             if ($fid) {
-                $tdoc = getTDoc($dbaccess, $fid);
+                $tdoc = \Dcp\DocManager::getRawDocument($fid);
                 $icon = $doc->getIcon($tdoc["icon"], 14);
                 $tlay[$k]["icon"] = $icon;
             } else {
@@ -165,4 +167,3 @@ function cmpgroup($a, $b)
 {
     return strcasecmp($a['lastname'], $b['lastname']);
 }
-?>

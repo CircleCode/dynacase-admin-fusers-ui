@@ -9,6 +9,8 @@ include_once ("FDL/freedom_util.php");
 /**
  * Set layout for fusers datatables
  * @param Action $action
+ * @throws Dcp\Exception
+ * @throws Dcp\DocManager\Exception
  */
 function fusers_datatables_layout(Action & $action)
 {
@@ -85,7 +87,7 @@ function fusers_datatables_layout(Action & $action)
 function getButtonList(Action & $action, $famid)
 {
     $list = array();
-    $doc = new_Doc($action->dbaccess, $famid);
+    $doc = \Dcp\DocManager::getFamily($famid);
     $infos = $doc->getChildFam(-1, true);
     foreach ($infos as $info) {
         $list[] = array(

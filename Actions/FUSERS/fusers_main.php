@@ -11,16 +11,16 @@ include_once ("FDL/Lib.Dir.php");
 /**
  * View list of document for a same family
  * @param Action &$action current action
- * @global chgAttr Http var :
- * @global chgId Http var :
- * @global chgValue Http var :
- * @global usedefaultview Http var : (Y|N) set Y if detail doc must be displayed with default view
- * @global etarget Http var : window target when edit doc
- * @global target Http var : window target when view doc
- * @global dirid Http var : folder/search id to restric searches
- * @global cols Http var : attributes id for column like : us_fname|us_lname
- * @global viewone Http var : (Y|N) set Y if want display detail doc if only one found
- * @global createsubfam Http var : (Y|N) set N if no want view possibility to create subfamily
+ * @global chgAttr string Http var :
+ * @global chgId string Http var :
+ * @global chgValue string Http var :
+ * @global usedefaultview string Http var : (Y|N) set Y if detail doc must be displayed with default view
+ * @global etarget string Http var : window target when edit doc
+ * @global target string Http var : window target when view doc
+ * @global dirid string Http var : folder/search id to restric searches
+ * @global cols string Http var : attributes id for column like : us_fname|us_lname
+ * @global viewone string Http var : (Y|N) set Y if want display detail doc if only one found
+ * @global createsubfam string Http var : (Y|N) set N if no want view possibility to create subfamily
  */
 function fusers_main(Action & $action)
 {
@@ -48,7 +48,7 @@ function fusers_main(Action & $action)
     $dirid = GetHttpVars("dirid"); // restrict search
     $cols = GetHttpVars("cols"); // specific cols
     if ($chattr != "" && $chid != "") {
-        $mdoc = new_Doc($dbaccess, $chid);
+        $mdoc = \Dcp\DocManager::getDocument($chid);
         $mdoc->setValue($chattr, $chval);
         $err = $mdoc->Modify();
         if ($err == "") AddWarningMsg($mdoc->title . " modifié (" . $mdoc->getAttribute($chattr)->getLabel() . " : " . $chval . ")");
@@ -62,7 +62,8 @@ function fusers_main(Action & $action)
         25,
         50
     );
-    foreach ($choicel as $k => $v) {
+    $tl = array();
+    foreach ($choicel as $v) {
         $tl[] = array(
             "count" => $v,
             "init" => ($lpage == $v ? "selected" : "")
@@ -79,29 +80,29 @@ function fusers_main(Action & $action)
     $action->lay->eSet("usedefaultview", GetHttpVars("usedefaultview"));
     $action->lay->eSet("viewone", GetHttpVars("viewone"));
     $action->lay->eSet("cols", GetHttpVars("cols"));
-
+    
     $sfullsearch = (GetHttpVars("sfullsearch", "") == "on" ? true : false);
     $action->lay->set("fullsearch", $sfullsearch);
     
     $sfam = GetHttpVars("dfam", $action->getParam("USERCARD_FIRSTFAM"));
     $action->lay->eSet("dfam", $sfam);
-    $dnfam = new_Doc($dbaccess, $sfam);
+    $dnfam = \Dcp\DocManager::getFamily($sfam);
     $action->lay->set("famid", $dnfam->id);
     $action->lay->eSet("famsearch", mb_convert_case(mb_strtolower($dnfam->title) , MB_CASE_TITLE));
-    $dfam = createDoc($dbaccess, $sfam, false);
+    $dfam = \Dcp\DocManager::createDocument($sfam, false);
     $fattr = $dfam->GetAttributes();
     // Get user configuration
     $ucols = array();
     if ($cols) {
         $tccols = explode("|", $cols);
-        foreach ($tccols as $k => $v) $ucols[$v] = 1;
+        foreach ($tccols as $v) $ucols[$v] = 1;
         $action->lay->set("choosecolumn", false); // don't see choose column
         
     } else {
         $pc = $action->getParam("FUSERS_MAINCOLS", "");
         if ($pc != "") {
             $tccols = explode("|", $pc);
-            foreach ($tccols as $k => $v) {
+            foreach ($tccols as $v) {
                 if ($v == "") continue;
                 $x = explode("%", $v);
                 if ($sfam == $x[0]) $ucols[$x[1]] = 1;
@@ -110,7 +111,7 @@ function fusers_main(Action & $action)
         if (count($ucols) == 0) {
             // default abstract
             $la = $dnfam->getAbstractAttributes();
-            foreach ($la as $k => $v) {
+            foreach ($la as $v) {
                 if (($v->mvisibility != 'H') && ($v->mvisibility != 'I')) $ucols[$v->id] = 1;
             }
         }
@@ -136,7 +137,6 @@ function fusers_main(Action & $action)
     }
     
     $action->lay->set("cancreate", count($child) > 0);
-    $orderby = "title";
     
     $cols = 0;
     $filter = array();
@@ -159,7 +159,7 @@ function fusers_main(Action & $action)
     $cols++;
     
     $vattr = array();
-    foreach ($fattr as $k => $v) {
+    foreach ($fattr as $v) {
         if ($v->type != "menu" && $v->type != "frame") {
             if (isset($ucols[$v->id]) && $ucols[$v->id] == 1) {
                 $sf = "";
@@ -201,7 +201,8 @@ function fusers_main(Action & $action)
     
     $action->lay->set("idone", ($viewone && (count($cl) == 1)) ? $cl[0]["id"] : false);
     $pzone = '';
-    foreach ($cl as $k => $v) {
+    $ddoc = null;
+    foreach ($cl as $v) {
         if ($il >= $lpage) continue;
         $dcol = array();
         $ddoc = getDocObject($dbaccess, $v);
@@ -213,7 +214,7 @@ function fusers_main(Action & $action)
             "ATTimage" => false,
             "ATTnormal" => true
         );
-        foreach ($vattr as $ka => $va) {
+        foreach ($vattr as $va) {
             $attimage = $attnormal = false;
             switch ($va->type) {
                 case "image":
@@ -262,7 +263,7 @@ function fusers_main(Action & $action)
     }
     $action->lay->set("dirtitle", "");
     if ($dirid > 0) {
-        $fdoc = new_doc($dbaccess, $dirid);
+        $fdoc = \Dcp\DocManager::getDocument($dirid);
         $action->lay->eSet("dirtitle", $fdoc->title);
     }
 }

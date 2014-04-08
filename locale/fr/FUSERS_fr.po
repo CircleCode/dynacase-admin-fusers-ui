@@ -8,293 +8,228 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dynacase-admin-uis\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-16 11:32+0200\n"
+"POT-Creation-Date: 2014-04-08 10:16+0200\n"
 "PO-Revision-Date: 2013-04-16 11:32+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: Actions/FUSERS/fusers_list.php:115
-#, c-format
+#, php-format
 msgid "<b>%d group(s) to refresh</b>"
 msgstr "<b>%d groupe(s) à actualiser"
 
-#: Apps/FUSERS/FUSERS.app:47
 msgid "Access to user refresh function"
 msgstr "Accès aux fonctions de raffraichissement des utilisateurs"
 
-#: Actions/FUSERS/fusers_list.php:80 Actions/FUSERS/fusers_list.php:83
 msgid "All groups"
 msgstr "Tous les groupes"
 
-#: Actions/FUSERS/fusers_list.php:73 Actions/FUSERS/fusers_list.php:76
 msgid "All roles"
 msgstr "Tous les rôles"
 
-#: Actions/FUSERS/fusers_list.php:66 Actions/FUSERS/fusers_list.php:69
 msgid "All users"
 msgstr "Tous les utilisateurs"
 
-#: tempCatalog.php:11
 msgid "Choose family to create"
 msgstr "Choisissez une famille de document à créer"
 
-#: tempCatalog.php:36
 msgid "Create "
 msgstr "Créer un "
 
-#: tempCatalog.php:39
+#, php-format
+msgid "FUSERS:Family '%s' not found."
+msgstr "Famille '%s' non trouvée."
+
 msgid "Generic Management"
 msgstr "Gestion générique"
 
-#: tempCatalog.php:2 tempCatalog.php:3
 msgid "Modify type"
 msgstr "Modifier le type"
 
-#: Actions/FUSERS/fusers_list.php:116
+#, php-format
 msgid "No need to refresh group"
 msgstr "Tous les groupes sont actualisés"
 
-#: tempCatalog.php:43
 msgid "Others"
 msgstr "Autres"
 
-#: tempCatalog.php:44
 msgid "Password"
 msgstr "Mot de passe"
 
-#: tempCatalog.php:25
 msgid "Refersh groups may take long time. Sure ?"
 msgstr ""
 "Rafraichir les groupes peut prendre beaucoup de temps.  Êtes vous sûr ?"
 
-#: tempCatalog.php:24
 msgid "Refresh Groups members and mail"
 msgstr "Raffraichissement des membres et du mail"
 
-#: tempCatalog.php:21 tempCatalog.php:23
 msgid "Refresh LDAP"
 msgstr "Actualiser LDAP"
 
-#: tempCatalog.php:22
 msgid "Refresh LDAP may take long time. Sure ?"
 msgstr "Actualiser le LDAP peut prendre beaucoup de temps.  Êtes vous sûr ? "
 
-#: tempCatalog.php:26
 msgid "Refresh groups"
 msgstr "Actualiser les groupes"
 
-#: tempCatalog.php:20
 msgid "Refresh users"
 msgstr "Actualiser les utilisateurs"
 
-#: tempCatalog.php:18
 msgid "Refresh users characteristics from system"
 msgstr "Rafraichir les caractéristiques des utilisateurs depuis le système"
 
-#: tempCatalog.php:19
 msgid "Refresh users may take long time. Sure ?"
 msgstr ""
 "Rafraichir les utilisateurs peut prendre beaucoup de temps.  Êtes vous sûr ?"
 
-#: tempCatalog.php:34
 msgid "Reset"
 msgstr "Réinitialisation"
 
-#: tempCatalog.php:32
 msgid "Save"
 msgstr "Sauver"
 
-#: tempCatalog.php:37
 msgid "Select an action"
 msgstr "Autre type"
 
-#: tempCatalog.php:41
 msgid "System"
 msgstr "Système"
 
-#: Apps/FUSERS/FUSERS.app:41
 msgid "To create and modify users and groups"
 msgstr "Pour créer et modifier des utilisateurs et des groups"
 
-#: Apps/FUSERS/FUSERS.app:26
 msgid "Users"
 msgstr "Gestion des utilisateurs"
 
-#: tempCatalog.php:27 Apps/FUSERS/FUSERS.app:27
 msgid "Users Management"
 msgstr "Création, modification des utilisateurs et groupes"
 
-#: tempCatalog.php:30
 msgid "choose colums"
 msgstr "Choix des colonnes affichées"
 
-#: tempCatalog.php:9
 msgid "click here to create a new"
 msgstr "Création...."
 
-#: Apps/FUSERS/FUSERS_init.php:35
 msgid "datatable displaylength"
 msgstr "Gestion de la taille d'affiche de la datatable"
 
-#: Actions/FUSERS/fusers_datatables_layout.php:67
 msgid "desc"
 msgstr "Description"
 
-#: tempCatalog.php:17
 msgid "edit contact card"
 msgstr "éditer la fiche"
 
-#: tempCatalog.php:16
 msgid "filter on"
 msgstr "Filtrer sur"
 
-#: tempCatalog.php:38
 msgid "filter on type"
 msgstr "Filtrer sur le type"
 
-#: Actions/FUSERS/fusers_datatables_layout.php:35
 msgid "firstname"
 msgstr "Prénom"
 
-#: Apps/FUSERS/FUSERS.app:61
 msgid "fusers list window"
 msgstr "fuser fenetre liste"
 
-#: Apps/FUSERS/FUSERS.app:55
 msgid "fusers root window"
 msgstr "fuser fenêtre principale"
 
-#: Apps/FUSERS/FUSERS.app:66
 msgid "fusers view/edit window"
 msgstr "fuser voir/modifier"
 
-#: Actions/FUSERS/fusers_datatables_layout.php:130
 msgid "fusers:All"
 msgstr "Tous"
 
-#: tempCatalog.php:42
 msgid "fusers:Group"
 msgstr "Groupe"
 
-#: tempCatalog.php:4
 msgid "fusers:No matching record found"
 msgstr "Aucun résultat trouvé"
 
-#: tempCatalog.php:6
 msgid "fusers:No result"
 msgstr "Aucun résultat"
 
-#: tempCatalog.php:7
 msgid "fusers:Processing"
 msgstr "Traitement en cours"
 
-#: tempCatalog.php:1
 msgid "fusers:Show All Items"
 msgstr "Tout afficher"
 
-#: tempCatalog.php:5
 msgid "fusers:Showing _START_ to _END_ of _TOTAL_ "
 msgstr "Affiche les résultats _START_ à _END_ sur _TOTAL_"
 
-#: Actions/FUSERS/fusers_datatables_layout.php:51
 msgid "fusers:label"
 msgstr "Libellé"
 
-#: Apps/FUSERS/FUSERS.app:114
 msgid "get image type"
 msgstr "Récupère les différents type d'image"
 
-#: Apps/FUSERS/FUSERS.app:102
 msgid "get layout for datatable"
 msgstr "Récupère le template pour ta dataTable"
 
-#: Apps/FUSERS/FUSERS.app:90
 msgid "iuser choose main view column"
 msgstr "Choisissez la colonne de vue principale"
 
-#: Apps/FUSERS/FUSERS.app:108
 msgid "iuser list all"
 msgstr "List tous les utilisateurs"
 
-#: Apps/FUSERS/FUSERS.app:96
 msgid "iuser list main page"
 msgstr "Listez la page principale"
 
-#: Actions/FUSERS/fusers_datatables_layout.php:30
 msgid "lastname"
 msgstr "Nom"
 
-#: tempCatalog.php:12
 msgid "lines"
 msgstr "lignes"
 
-#: tempCatalog.php:13
 msgid "lines per page"
 msgstr "lignes par page"
 
-#: Actions/FUSERS/fusers_datatables_layout.php:25
-#: Actions/FUSERS/fusers_datatables_layout.php:62
 msgid "login"
 msgstr "Identifiant"
 
-#: Actions/FUSERS/fusers_datatables_layout.php:40
 msgid "mail"
 msgstr "Courriel"
 
-#: Apps/FUSERS/FUSERS_init.php:30
 msgid "main view columns"
 msgstr "Vue principale"
 
-#: Apps/FUSERS/FUSERS_init.php:24
 msgid "main view line displayed"
 msgstr "édition des colonnes"
 
-#: tempCatalog.php:14
 msgid "manage columns"
 msgstr "Gérer les colonnes"
 
-#: Apps/FUSERS/FUSERS.app:83
 msgid "refresh groups"
 msgstr "Actualiseles groupes"
 
-#: Apps/FUSERS/FUSERS.app:76
 msgid "refresh ldap entries"
 msgstr "actualiser les entrées du LDAP"
 
-#: Apps/FUSERS/FUSERS.app:71
 msgid "refresh users intranet attributes"
 msgstr "actualisation des attributs intranet des utilisateurs"
 
-#: tempCatalog.php:35
 msgid "reset to default"
 msgstr "configuration par défaut"
 
-#: tempCatalog.php:33
 msgid "save modifications"
 msgstr "sauver les modifications"
 
-#: tempCatalog.php:15
 msgid "search all containing"
 msgstr "rechercher tous ceux contenant..."
 
-#: tempCatalog.php:31
 msgid "select to view colum"
 msgstr "selection pour voir les colonnes"
 
-#: tempCatalog.php:8
 msgid "show _MENU_ per page"
 msgstr "Affiche _MENU_ par page"
 
-#: tempCatalog.php:28 tempCatalog.php:29 tempCatalog.php:40
 msgid "view detail"
 msgstr "voir détails"
 
-#: tempCatalog.php:10
 msgid "view sub families"
 msgstr "Voir les sous-familles"
 

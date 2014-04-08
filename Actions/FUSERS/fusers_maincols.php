@@ -6,19 +6,16 @@
  * @package FDL
 */
 
-/**
- */
 include_once ("FDL/Lib.Dir.php");
 
-function fusers_maincols(Action &$action)
+function fusers_maincols(Action & $action)
 {
     
-    global $_GET, $_POST, $ZONE_ARGS;
-    $dbaccess = $action->getParam("FREEDOM_DB");
+    global $_GET, $_POST;
     // Get default visibilty => Abstract view from freedom
     $sfam = GetHttpVars("dfam", $action->getParam("DEFAULT_FAMILY"));
     $action->lay->eSet("dfam", $sfam);
-    $dnfam = new_Doc($dbaccess, $sfam);
+    $dnfam = \Dcp\DocManager::getFamily($sfam);
     $action->lay->eSet("dfamname", $dnfam->title);
     
     $reset = GetHttpVars("resetcols", 0);
@@ -33,15 +30,15 @@ function fusers_maincols(Action &$action)
         }
     }
     
-    $dfam = createDoc($dbaccess, $sfam, false);
+    $dfam = \Dcp\DocManager::createDocument($sfam, false);
     $fattr = $dfam->GetNormalAttributes();
     $cols = array();
-    foreach ($fattr as $k => $v) {
+    foreach ($fattr as $v) {
         if ($v->type != "menu" && $v->type != "frame" && $v->type != "array" && $v->visibility != "H" && $v->visibility != "O" && $v->visibility != "I") {
             $cols[$v->id] = array(
                 "l" => ($v->isInAbstract == 1 ? 1 : 0) ,
                 "order" => $v->ordered,
-                "label" => $v->fieldSet->getLabel().'/'.$v->getLabel()
+                "label" => $v->fieldSet->getLabel() . '/' . $v->getLabel()
             );
         }
     }
@@ -57,22 +54,22 @@ function fusers_maincols(Action &$action)
         //     AddWarningMsg("FUSERS_MAINCOLS = [$scol]");
         if ($pc != "") {
             $tccols = explode("|", $pc);
-            foreach ($tccols as $k => $v) {
+            foreach ($tccols as $v) {
                 if ($v == "") continue;
                 $x = explode("%", $v);
                 if ($x[0] != $sfam) $allcol[] = $x[0] . "%" . $x[1];
             }
         }
         $scol = implode("|", $allcol);
-        if ($action->user->id == 1) $action->parent->param->Set("FUSERS_MAINCOLS", $scol, PARAM_APP, $action->parent->id);
-        $action->parent->param->set("FUSERS_MAINCOLS", $scol, PARAM_USER . $action->user->id, $action->parent->id);
+        if ($action->user->id == 1) $action->parent->param->Set("FUSERS_MAINCOLS", $scol, Param::PARAM_APP, $action->parent->id);
+        $action->parent->param->set("FUSERS_MAINCOLS", $scol, Param::PARAM_USER . $action->user->id, $action->parent->id);
     } else { // User initial state
         if ($pc != "") {
             $tccols = explode("|", $pc);
             // reset first
             foreach ($cols as $k => $v) $cols[$k]["l"] = 0;
             
-            foreach ($tccols as $k => $v) {
+            foreach ($tccols as $v) {
                 if ($v == "") continue;
                 $x = explode("%", $v);
                 if ($x[0] == $sfam && isset($cols[$x[1]])) {
@@ -81,7 +78,7 @@ function fusers_maincols(Action &$action)
             }
         }
     }
-    $vcols=array();
+    $vcols = array();
     foreach ($cols as $k => $v) {
         $vcols[] = array(
             "id" => $k,
